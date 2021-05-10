@@ -8,7 +8,7 @@ using ShellApp.Models;
 
 namespace ShellApp.Controllers
 {
-    [Route("api/item")]
+    [Route("api/items")]
     [ApiController]
     public class ItemController : ControllerBase
     {

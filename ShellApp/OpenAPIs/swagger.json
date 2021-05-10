@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "https://localhost:5001"
+      "url": "https://localhost:5020"
     }
   ],
   "paths": {
-    "/api/item": {
+    "/api/items": {
       "get": {
         "tags": [
           "Item"
@@ -107,7 +107,7 @@
         }
       }
     },
-    "/api/item/{id}": {
+    "/api/items/{id}": {
       "get": {
         "tags": [
           "Item"
@@ -194,8 +194,7 @@
         ],
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "text": {
             "type": "string",
