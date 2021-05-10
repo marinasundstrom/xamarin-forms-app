@@ -47,4 +47,4 @@ Add this to the CollectionView to enable incremental loading in the control:
 ```xaml
 RemainingItemsThreshold="5"
 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
-``
+```
