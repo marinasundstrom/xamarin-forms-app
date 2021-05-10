@@ -8,13 +8,13 @@ using ShellApp.Models;
 
 namespace ShellApp.Controllers
 {
-    [Route("api/items")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : ControllerBase
+    public class ItemsController : ControllerBase
     {
         private readonly IItemRepository ItemRepository;
 
-        public ItemController(IItemRepository itemRepository)
+        public ItemsController(IItemRepository itemRepository)
         {
             ItemRepository = itemRepository;
         }

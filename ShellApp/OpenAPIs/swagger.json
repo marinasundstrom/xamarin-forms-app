@@ -11,12 +11,12 @@
     }
   ],
   "paths": {
-    "/api/items": {
+    "/api/Items": {
       "get": {
         "tags": [
-          "Item"
+          "Items"
         ],
-        "operationId": "Item_List",
+        "operationId": "Items_List",
         "responses": {
           "200": {
             "description": "",
@@ -35,9 +35,9 @@
       },
       "post": {
         "tags": [
-          "Item"
+          "Items"
         ],
-        "operationId": "Item_Create",
+        "operationId": "Items_Create",
         "requestBody": {
           "x-name": "item",
           "content": {
@@ -75,9 +75,9 @@
       },
       "put": {
         "tags": [
-          "Item"
+          "Items"
         ],
-        "operationId": "Item_Edit",
+        "operationId": "Items_Edit",
         "requestBody": {
           "x-name": "item",
           "content": {
@@ -107,12 +107,12 @@
         }
       }
     },
-    "/api/items/{id}": {
+    "/api/Items/{id}": {
       "get": {
         "tags": [
-          "Item"
+          "Items"
         ],
-        "operationId": "Item_GetItem",
+        "operationId": "Items_GetItem",
         "parameters": [
           {
             "name": "id",
@@ -150,9 +150,9 @@
       },
       "delete": {
         "tags": [
-          "Item"
+          "Items"
         ],
-        "operationId": "Item_Delete",
+        "operationId": "Items_Delete",
         "parameters": [
           {
             "name": "id",
