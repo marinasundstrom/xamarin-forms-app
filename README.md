@@ -14,6 +14,10 @@ Mobile App with Web API backend. Based on the Shell app project template.
 * Web API, with Open API definition (Swagger)
 * Azure SQL Edge (ARM64) for storage - EF Core for ORM
 
+**Notice:** This project is being developed on an M1 MacBook, since the MS SQL Server image does not support the ARM64 architecture, we use Azure SQL Edge instead.
+
+If you run on x86-64, you can just uncomment the lines for SQL Server in the ```tye.yaml``` file.
+
 ## Development Requirements
 
 * .NET 5 SDK

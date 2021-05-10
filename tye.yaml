@@ -25,3 +25,14 @@ services:
   bindings:
     - port: 1433
       connectionString: Server=${host},${port};Database=ShellApp;User Id=sa;Password=${env:MSSQL_SA_PASSWORD}
+
+# - name: mssql
+#   image: mcr.microsoft.com/mssql/server:2019-latest
+#   env:
+#   - name: SA_PASSWORD
+#     value: P@ssw0rd
+#   - name: ACCEPT_EULA
+#     value: "Y"
+#   bindings:
+#     - port: 1433
+#       connectionString: Server=${host},${port};Database=ShellApp;User Id=sa;Password=${env:SA_PASSWORD}
