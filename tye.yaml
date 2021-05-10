@@ -1,0 +1,27 @@
+﻿# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: ShellApp
+
+services:
+- name: ShellApp-Web
+  project: ShellApp.Web/ShellApp.Web.csproj
+  bindings:
+  - protocol: https
+    port: 5020
+
+- name: mssql
+  image: mcr.microsoft.com/azure-sql-edge:latest
+  env:
+  - name: MSSQL_SA_PASSWORD
+    value: P@ssw0rd
+  - name: MSSQL_PID
+    value: Developer
+  - name: ACCEPT_EULA
+    value: "Y"
+  bindings:
+    - port: 1433
+      connectionString: Server=${host},${port};Database=ShellApp;User Id=sa;Password=${env:MSSQL_SA_PASSWORD}
