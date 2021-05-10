@@ -88,7 +88,7 @@ namespace ShellApp.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
-        public Command LoadMoreCommand => loadMoreCommand ?? new Command(async () =>
+        public Command LoadMoreCommand => loadMoreCommand ??= new Command(async () =>
         {
             var items = await DataStore.GetItemsAsync(true);
             foreach (var item in items)
