@@ -66,9 +66,23 @@ namespace ShellApp.ViewModels
 
         public Command DeleteItemCommand => deleteItemCommand ??= new Command(async () =>
         {
-            var items = await DataStore.DeleteItemAsync(ItemId);
+            var result = await Shell.Current.DisplayActionSheet("Are you sure that you want to delete this item?", "Cancel", "Delete");
 
-            await Shell.Current.Navigation.PopAsync();
+            switch (result)
+            {
+                case "Cancel":
+
+                    // Do Something when 'Cancel' Button is pressed
+
+                    break;
+
+                case "Delete":
+                    var items = await DataStore.DeleteItemAsync(ItemId);
+
+                    await Shell.Current.Navigation.PopAsync();
+
+                    break;
+            }
         });
     }
 }
