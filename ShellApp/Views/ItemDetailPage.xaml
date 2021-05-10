@@ -8,6 +8,10 @@
     x:DataType="vm:ItemDetailViewModel"
     BindingContext="{x:Static vm:ViewModelLocator.ItemDetailViewModel}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding DeleteItemCommand}" Text="Delete" />
+    </ContentPage.ToolbarItems>
+
     <StackLayout Padding="15" Spacing="20">
         <Label FontSize="Medium" Text="Text:" />
         <Label FontSize="Small" Text="{Binding Text}" />

@@ -13,6 +13,7 @@ namespace ShellApp.ViewModels
         private string itemId;
         private string text;
         private string description;
+        private Command deleteItemCommand;
 
         public ItemDetailViewModel(IDataStore<Item> dataStore)
         {
@@ -62,5 +63,12 @@ namespace ShellApp.ViewModels
                 Debug.WriteLine("Failed to Load Item");
             }
         }
+
+        public Command DeleteItemCommand => deleteItemCommand ??= new Command(async () =>
+        {
+            var items = await DataStore.DeleteItemAsync(ItemId);
+
+            await Shell.Current.Navigation.PopAsync();
+        });
     }
 }
