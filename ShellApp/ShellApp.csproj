@@ -37,5 +37,17 @@
 
     <ItemGroup>
       <Folder Include="Markup\" />
+      <Folder Include="Resources\" />
+      <Folder Include="Resources\Fonts\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Resources\Fonts\Font AwesomeIcons.otf" />
+      <None Remove="Resources\Fonts\Font AwesomeRegular.otf" />
+      <None Remove="Resources\Fonts\FontAwesomeSolid.otf" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\Fonts\FontAwesomeIcons.otf" />
+      <EmbeddedResource Include="Resources\Fonts\FontAwesomeRegular.otf" />
+      <EmbeddedResource Include="Resources\Fonts\FontAwesomeSolid.otf" />
     </ItemGroup>
 </Project>
