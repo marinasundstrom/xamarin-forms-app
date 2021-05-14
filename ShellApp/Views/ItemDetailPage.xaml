@@ -3,13 +3,18 @@
     x:Class="ShellApp.Views.ItemDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
     xmlns:vm="clr-namespace:ShellApp.ViewModels"
     Title="{Binding Title}"
     x:DataType="vm:ItemDetailViewModel"
     BindingContext="{x:Static vm:ViewModelLocator.ItemDetailViewModel}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding DeleteItemCommand}" Text="Delete" />
+        <ToolbarItem Command="{Binding DeleteItemCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FA Solid" Glyph="{x:Static fa:Glyphs.Trash}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="15" Spacing="20">
