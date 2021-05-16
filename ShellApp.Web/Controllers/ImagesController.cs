@@ -25,10 +25,14 @@ namespace ShellApp.Web.Controllers
         public async Task<ActionResult> Get(string id)
         {
             var client = blobContainerClient.GetBlobClient(id);
-            
-            Console.WriteLine(client.GenerateSasUri(Azure.Storage.Sas.BlobSasPermissions.Read, DateTimeOffset.MaxValue));
+
+            Console.WriteLine(client.Uri);
+
             var result = await client.DownloadContentAsync();
-            return File(result.Value.Content.ToStream(), "text/text");
+
+            Console.WriteLine(result.Value.Details.ContentType);
+
+            return File(result.Value.Content.ToStream(), result.Value.Details.ContentType);
         }
     }
 }
