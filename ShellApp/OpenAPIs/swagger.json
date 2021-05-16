@@ -16,7 +16,29 @@
         "tags": [
           "Items"
         ],
-        "operationId": "Items_List",
+        "operationId": "Items_GetItems",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            },
+            "x-position": 1
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 2
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -37,19 +59,27 @@
         "tags": [
           "Items"
         ],
-        "operationId": "Items_Create",
-        "requestBody": {
-          "x-name": "item",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            }
+        "operationId": "Items_CreateItem",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
           },
-          "required": true,
-          "x-position": 1
-        },
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
         "responses": {
           "201": {
             "description": "",
@@ -60,39 +90,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Items"
-        ],
-        "operationId": "Items_Edit",
-        "requestBody": {
-          "x-name": "item",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "204": {
-            "description": ""
           },
           "400": {
             "description": "",
@@ -148,11 +145,62 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "Items"
+        ],
+        "operationId": "Items_UpdateItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "Items"
         ],
-        "operationId": "Items_Delete",
+        "operationId": "Items_DeleteItem",
         "parameters": [
           {
             "name": "id",
@@ -181,6 +229,38 @@
           }
         }
       }
+    },
+    "/api/Images/{id}": {
+      "get": {
+        "tags": [
+          "Images"
+        ],
+        "operationId": "Images_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -188,21 +268,34 @@
       "Item": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "text",
-          "description"
-        ],
         "properties": {
           "id": {
             "type": "string"
           },
           "text": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "description": {
+            "type": "string"
+          },
+          "pictureUri": {
+            "type": "string"
+          },
+          "created": {
             "type": "string",
-            "minLength": 1
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

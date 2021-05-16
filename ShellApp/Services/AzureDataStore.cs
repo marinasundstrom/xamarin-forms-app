@@ -12,9 +12,9 @@ namespace ShellApp.Services
     public class AzureDataStore : IDataStore<Item>
     {
         IEnumerable<Item> items;
-        private readonly IShellAppClient client;
+        private readonly IItemsClient client;
 
-        public AzureDataStore(IShellAppClient client)
+        public AzureDataStore(IItemsClient client)
         {
             this.client = client;
             items = new List<Item>();
@@ -25,7 +25,7 @@ namespace ShellApp.Services
         {
             if (forceRefresh && IsConnected)
             {
-                items = await client.ListAsync();
+                items = await client.GetItemsAsync(10, 0);
             }
 
             return items;
@@ -41,22 +41,22 @@ namespace ShellApp.Services
             return null;
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        public async Task<bool> CreateItemAsync(string text, string description)
         {
-            if (item == null || !IsConnected)
+            if (!IsConnected)
                 return false;
 
-            var response = await client.CreateAsync(item);
+            var response = await client.CreateItemAsync(text, description);
 
             return true;
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(string id, string text, string description)
         {
-            if (item == null || item.Id == null || !IsConnected)
+            if (id == null || !IsConnected)
                 return false;
 
-            await client.EditAsync(item);
+            await client.UpdateItemAsync(id, text, description);
 
             return true;
         }
@@ -66,7 +66,7 @@ namespace ShellApp.Services
             if (string.IsNullOrEmpty(id) && !IsConnected)
                 return false;
 
-            await client.DeleteAsync(id);
+            await client.DeleteItemAsync(id);
 
             return true;
         }

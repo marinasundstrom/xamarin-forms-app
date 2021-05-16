@@ -6,8 +6,8 @@ namespace ShellApp.Services
 {
     public interface IDataStore<T>
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
+        Task<bool> CreateItemAsync(string text, string description);
+        Task<bool> UpdateItemAsync(string id, string text, string description);
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);

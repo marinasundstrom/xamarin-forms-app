@@ -23,18 +23,18 @@ namespace ShellApp.Services
             };
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        public async Task<bool> CreateItemAsync(string text, string description)
         {
-            items.Add(item);
+            //items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(string id, string text, string description)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
+            //var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            //items.Remove(oldItem);
+            //items.Add(item);
 
             return await Task.FromResult(true);
         }

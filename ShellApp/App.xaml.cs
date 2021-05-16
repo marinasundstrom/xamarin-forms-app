@@ -45,7 +45,7 @@ namespace ShellApp
 
         private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddHttpClient<IShellAppClient, ShellAppClient>(
+            services.AddHttpClient<IItemsClient, ItemsClient>(
                 (provider, client) =>
                 {
                     client.BaseAddress = new Uri(AzureBackendUrl);

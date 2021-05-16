@@ -8,7 +8,7 @@ name: ShellApp
 
 services:
 - name: ShellApp-Web
-  project: ShellApp.Web/ShellApp.Web.csproj
+  project: Backend/ShellApp.Web/ShellApp.Web.csproj
   bindings:
   - protocol: https
     port: 5020

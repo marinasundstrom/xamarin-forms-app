@@ -2,17 +2,25 @@
 
 Mobile App with Web API backend. Based on the Shell app project template.
 
+Using [Tye](https://github.com/dotnet/tye) for easy development and deployment.
+
 ## Contents
 
 ### Mobile App
 
 * Model View View-Model (MVVM)
-* Inversion of Control (IoC), and Dependency injection
+* Inversion of Control (IoC), and Dependency injection.
 
 ### Backend
 
 * Web API, with Open API definition (Swagger)
-* Azure SQL Edge (ARM64) for storage - EF Core for ORM
+* Structured according to Command, Query, Request Segretation (CQRS) using Mediator pattern.
+* Azure SQL Edge (ARM64*) for storage - EF Core for ORM
+* Azurite Storage emulator for Blob storage
+
+Following the Clean Architecture pattern and CQRS, it enables the creation of a loosely-coupled monolith.
+
+**SQL Server is optional for x86-64*
 
 ## Development
 
@@ -51,6 +59,8 @@ tye run
 * Add authentication
 
 ## Other
+
+Things to use later...
 
 ### Incremental loading
 

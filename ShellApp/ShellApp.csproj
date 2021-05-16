@@ -9,7 +9,7 @@
    <ItemGroup>
     <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="ShellApp.Client" Options="/UseBaseUrl:false /GenerateClientInterfaces:true">
       <SourceUri>https://localhost:5001/swagger/v1/swagger.json</SourceUri>
-      <ClassName>ShellAppClient</ClassName>
+      <ClassName>{controller}Client</ClassName>
       <OutputPath>ShellAppClient.cs</OutputPath>
     </OpenApiReference>
   </ItemGroup>
