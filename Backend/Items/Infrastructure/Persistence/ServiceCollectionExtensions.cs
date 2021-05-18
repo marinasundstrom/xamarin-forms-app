@@ -10,7 +10,8 @@ namespace ShellApp.Items.Infrastructure.Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDataContext>(
-                (sp, options) => {
+                (sp, options) =>
+                {
                     options.UseSqlServer(configuration.GetConnectionString("mssql"));
 #if DEBUG
                     options.EnableSensitiveDataLogging();

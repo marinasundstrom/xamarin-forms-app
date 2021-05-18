@@ -108,7 +108,7 @@ namespace ShellApp.ViewModels
             IsLoading = true;
 
             try
-            { 
+            {
                 var items = await DataStore.GetItemsAsync(10, Items.Count);
 
                 await MainThread.InvokeOnMainThreadAsync(() =>
@@ -121,7 +121,7 @@ namespace ShellApp.ViewModels
 
                 var count = items.Count();
 
-                if(count == 0)
+                if (count == 0)
                 {
                     ItemThreshold = -1;
                     return;

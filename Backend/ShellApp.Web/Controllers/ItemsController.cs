@@ -25,7 +25,8 @@ namespace ShellApp.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(int limit = 10, int skip = 0)
         {
-            return Ok(await mediator.Send(new GetItemsQuery() {
+            return Ok(await mediator.Send(new GetItemsQuery()
+            {
                 Limit = limit,
                 Skip = skip
             }));

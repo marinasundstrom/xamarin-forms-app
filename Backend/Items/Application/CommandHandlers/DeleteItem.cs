@@ -22,7 +22,7 @@ namespace ShellApp.Items.Application.CommandHandlers
         {
             var item = await context.Items.FindAsync(request.ItemId);
 
-            if(item == null)
+            if (item == null)
             {
                 throw new NotFoundException();
             }
