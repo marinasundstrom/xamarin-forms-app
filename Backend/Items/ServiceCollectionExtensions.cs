@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShellApp.Items.Application;
-using ShellApp.Items.Application.Items;
 using ShellApp.Items.Infrastructure;
 
 namespace ShellApp.Items
@@ -13,7 +12,7 @@ namespace ShellApp.Items
         {
             return services
                 .AddInfrastructure(configuration)
-                .AddItems();
+                .AddApplication();
         }
     }
 }

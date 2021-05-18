@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ShellApp.Items.Application.Items
+namespace ShellApp.Items.Application
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddItems(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(typeof(ServiceCollectionExtensions));
 

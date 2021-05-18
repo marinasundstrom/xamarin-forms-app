@@ -9,7 +9,7 @@ using System;
 using ShellApp.Items.Queries;
 using ShellApp.Items.Application.Common.Interfaces;
 
-namespace ShellApp.Items.Application.Items.CommandHandlers
+namespace ShellApp.Items.Application.CommandHandlers
 {
     public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, ItemDto>
     {

@@ -7,9 +7,9 @@ using ShellApp.Items.Application.Common.Interfaces;
 using ShellApp.Domain.Exceptions;
 using ShellApp.Items.Queries;
 
-using static ShellApp.Items.Application.Items.Mappings;
+using static ShellApp.Items.Application.Mappings;
 
-namespace ShellApp.Items.Application.Items.QueryHandlers
+namespace ShellApp.Items.Application.QueryHandlers
 {
     public class GetItemQueryHandler : IRequestHandler<GetItemQuery, ItemDto>
     {

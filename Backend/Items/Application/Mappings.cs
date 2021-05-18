@@ -5,7 +5,7 @@ using ShellApp.Items.Domain.Entities;
 using System;
 using ShellApp.Items.Commands;
 
-namespace ShellApp.Items.Application.Items
+namespace ShellApp.Items.Application
 {
     public static class Mappings
     {

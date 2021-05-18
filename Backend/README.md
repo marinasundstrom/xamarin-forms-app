@@ -6,6 +6,8 @@
 * **Items** - contains the actual behavior of the application, handlers for command and queries. Regard it as its own module. The naming could be better.
 * **Items.Contracts** - contains the contracts. that is commands, queries, and domain events.
 
+**Items*** is a module representing a bounded context.
+
 Shared "infrastructure" projects are **Domain**, **Infastructure**, **Application.Common**, and **Contracts.Common**.
 
 ## Loosely coupled monolith
