@@ -14,11 +14,13 @@ namespace ShellApp.Application.Items.CommandHandlers
     {
         private readonly IDomainEventService domainEventService;
         private readonly IApplicationDataContext context;
+        private readonly IImageUploader imageUploader;
 
-        public CreateItemCommandHandler(IDomainEventService domainEventService, IApplicationDataContext context)
+        public CreateItemCommandHandler(IDomainEventService domainEventService, IApplicationDataContext context, IImageUploader imageUploader)
         {
             this.domainEventService = domainEventService;
             this.context = context;
+            this.imageUploader = imageUploader;
         }
 
         public async Task<ItemDto> Handle(CreateItemCommand request, CancellationToken cancellationToken)
@@ -32,6 +34,10 @@ namespace ShellApp.Application.Items.CommandHandlers
             };
 
             context.Items.Add(item);
+
+            await context.SaveChangesAsync();
+
+            item.PictureUri = await imageUploader.UploadImageAsync(item.Id, request.Picture, cancellationToken);
 
             await context.SaveChangesAsync();
 

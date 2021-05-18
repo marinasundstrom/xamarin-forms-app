@@ -34,9 +34,13 @@
             RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item">
-                        <Rectangle BackgroundColor="LightGray" HeightRequest="100" />
+                <DataTemplate x:DataType="model:Item">
+                    <StackLayout Padding="10">
+                        <Image
+                            Aspect="AspectFill"
+                            BackgroundColor="LightGray"
+                            HeightRequest="100"
+                            Source="{Binding PictureUri}" />
                         <Label
                             FontSize="16"
                             LineBreakMode="WordWrap"

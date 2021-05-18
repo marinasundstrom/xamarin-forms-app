@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ShellApp.Web.Services
+namespace ShellApp.Application.Common.Interfaces
 {
     public interface IImageUploader
     {

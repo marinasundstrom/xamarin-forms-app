@@ -47,12 +47,13 @@ namespace ShellApp.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ItemDto>> CreateItem(string text, string description)
+        public async Task<ActionResult<ItemDto>> CreateItem(string text, string description, IFormFile formFile)
         {
             var item = await mediator.Send(new CreateItemCommand()
             {
                 Text = text,
-                Description = description
+                Description = description,
+                Picture = formFile.OpenReadStream()
             });
 
             return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item);

@@ -13,6 +13,7 @@ namespace ShellApp.ViewModels
         private string itemId;
         private string text;
         private string description;
+        private string pictureUri;
         private Command deleteItemCommand;
 
         public ItemDetailViewModel(IDataStore<Item> dataStore)
@@ -32,6 +33,12 @@ namespace ShellApp.ViewModels
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+
+        public string PictureUri
+        {
+            get => pictureUri;
+            set => SetProperty(ref pictureUri, value);
         }
 
         public string ItemId
@@ -57,6 +64,7 @@ namespace ShellApp.ViewModels
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;
+                PictureUri = item.PictureUri;
             }
             catch (Exception)
             {

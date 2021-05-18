@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
 using ShellApp.Client;
+using System.IO;
 
 namespace ShellApp.Services
 {
@@ -41,12 +42,12 @@ namespace ShellApp.Services
             return null;
         }
 
-        public async Task<bool> CreateItemAsync(string text, string description)
+        public async Task<bool> CreateItemAsync(string text, string description, Stream picture)
         {
             if (!IsConnected)
                 return false;
 
-            var response = await client.CreateItemAsync(text, description);
+            var response = await client.CreateItemAsync(text, description, new FileParameter(picture));
 
             return true;
         }

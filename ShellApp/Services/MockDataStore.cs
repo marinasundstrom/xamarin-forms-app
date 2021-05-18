@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ShellApp.Client;
@@ -23,7 +24,7 @@ namespace ShellApp.Services
             };
         }
 
-        public async Task<bool> CreateItemAsync(string text, string description)
+        public async Task<bool> CreateItemAsync(string text, string description, Stream picture)
         {
             //items.Add(item);
 

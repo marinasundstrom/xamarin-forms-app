@@ -22,6 +22,13 @@
                 Text="{Binding Description, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button
+                    Command="{Binding PickPhotoCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Pick image" />
+            </StackLayout>
+            <Image Source="{Binding PhotoPath}" />
+            <StackLayout Orientation="Horizontal">
+                <Button
                     Command="{Binding CancelCommand}"
                     HorizontalOptions="FillAndExpand"
                     Text="Cancel" />

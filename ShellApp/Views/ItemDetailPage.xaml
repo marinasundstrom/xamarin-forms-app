@@ -22,6 +22,11 @@
         <Label FontSize="Small" Text="{Binding Text}" />
         <Label FontSize="Medium" Text="Description:" />
         <Label FontSize="Small" Text="{Binding Description}" />
+        <Image
+            Aspect="AspectFill"
+            BackgroundColor="LightGray"
+            HeightRequest="350"
+            Source="{Binding PictureUri}" />
     </StackLayout>
 
 </ContentPage>

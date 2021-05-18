@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.IO;
+using MediatR;
 using ShellApp.Queries;
 
 namespace ShellApp.Commands
@@ -7,5 +8,6 @@ namespace ShellApp.Commands
     {
         public string Text { get; set; } = null!;
         public string Description { get; set; } = null!;
+        public Stream Picture { get; set; } = null!;
     }
 }

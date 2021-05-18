@@ -25,7 +25,8 @@ namespace ShellApp.Web
         {
             services.AddInfrastructure(Configuration)
                     .AddItems(Configuration)
-                    .AddScoped<ICurrentUserService, CurrentUserService>();
+                    .AddScoped<ICurrentUserService, CurrentUserService>()
+                    .AddScoped<IImageUploader, ImageUploader>();
 
             services.AddControllers()
                 //.AddItems()
