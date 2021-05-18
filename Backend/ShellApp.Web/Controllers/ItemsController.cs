@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ShellApp.Commands;
-using ShellApp.Queries;
+using ShellApp.Items.Commands;
+using ShellApp.Items.Queries;
 
 namespace ShellApp.Controllers
 {

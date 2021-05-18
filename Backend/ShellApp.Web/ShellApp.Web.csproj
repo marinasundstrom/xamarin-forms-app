@@ -21,10 +21,10 @@
     <ProjectReference Include="..\Application.Common\Application.Common.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\ShellApp\ShellApp.csproj">
+    <ProjectReference Include="..\Items\Items.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\ShellApp.Contracts\ShellApp.Contracts.csproj">
+    <ProjectReference Include="..\Items.Contracts\Items.Contracts.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

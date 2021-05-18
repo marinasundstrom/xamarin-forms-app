@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using ShellApp.Infrastructure.Persistence;
+using ShellApp.Items.Infrastructure.Persistence;
 
 namespace ShellApp.Web
 {

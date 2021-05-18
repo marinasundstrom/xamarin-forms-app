@@ -15,13 +15,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp", "Backend\ShellApp\ShellApp.csproj", "{5BF480B4-0197-425B-9080-401ADF38B4F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items", "Backend\Items\Items.csproj", "{5BF480B4-0197-425B-9080-401ADF38B4F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.Web", "Backend\ShellApp.Web\ShellApp.Web.csproj", "{F1E0A135-806F-4662-8CA2-F1966704526F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{81A0ED66-924D-403B-9E4B-21C3930FE68F}"
+	ProjectSection(SolutionItems) = preProject
+		Backend\README.md = Backend\README.md
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.Contracts", "Backend\ShellApp.Contracts\ShellApp.Contracts.csproj", "{38044C3D-5854-40F3-8E8D-872FD32C1209}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items.Contracts", "Backend\Items.Contracts\Items.Contracts.csproj", "{38044C3D-5854-40F3-8E8D-872FD32C1209}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Common", "Backend\Application.Common\Application.Common.csproj", "{5FED7965-6C68-4FD9-B308-680C5813068B}"
 EndProject

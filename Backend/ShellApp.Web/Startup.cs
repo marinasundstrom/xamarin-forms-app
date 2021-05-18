@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShellApp.Application.Common.Interfaces;
 using ShellApp.Infrastructure;
+using ShellApp.Items;
 using ShellApp.Web.Services;
 
 namespace ShellApp.Web
