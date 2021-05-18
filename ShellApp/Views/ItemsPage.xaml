@@ -30,6 +30,8 @@
             x:Name="ItemsListView"
             ItemsLayout="VerticalGrid, 2"
             ItemsSource="{Binding Items}"
+            RemainingItemsThreshold="{Binding ItemThreshold}"
+            RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>

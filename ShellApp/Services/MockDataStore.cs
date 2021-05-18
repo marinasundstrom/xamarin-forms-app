@@ -52,7 +52,7 @@ namespace ShellApp.Services
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Item>> GetItemsAsync(int limit, int skip)
         {
             return await Task.FromResult(items);
         }

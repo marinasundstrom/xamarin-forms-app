@@ -25,6 +25,7 @@ namespace ShellApp.Application.Items.QueryHandlers
             var query = context.Items
                 .AsNoTracking()
                 .AsSplitQuery()
+                .OrderBy(item => item.Created)
                 .AsQueryable();
 
             query = query.Skip(request.Skip);

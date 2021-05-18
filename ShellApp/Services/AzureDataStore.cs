@@ -21,11 +21,11 @@ namespace ShellApp.Services
         }
 
         bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Item>> GetItemsAsync(int limit, int skip)
         {
-            if (forceRefresh && IsConnected)
+            if (IsConnected)
             {
-                items = await client.GetItemsAsync(10, 0);
+                items = await client.GetItemsAsync(limit, skip);
             }
 
             return items;

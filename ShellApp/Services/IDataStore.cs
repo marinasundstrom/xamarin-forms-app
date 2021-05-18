@@ -10,6 +10,6 @@ namespace ShellApp.Services
         Task<bool> UpdateItemAsync(string id, string text, string description);
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetItemsAsync(int limit, int skip);
     }
 }

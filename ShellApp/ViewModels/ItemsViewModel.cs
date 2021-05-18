@@ -8,13 +8,16 @@ using Xamarin.Forms;
 using ShellApp.Views;
 using ShellApp.Services;
 using ShellApp.Client;
+using System.Linq;
+using Xamarin.Essentials;
 
 namespace ShellApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
-        private Command loadMoreCommand;
+        private int _itemThreshold;
+        private Command _loadMoreCommand;
 
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
@@ -35,16 +38,16 @@ namespace ShellApp.ViewModels
 
         async Task ExecuteLoadItemsCommand()
         {
-            IsBusy = true;
-
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync(10, 0);
                 foreach (var item in items)
                 {
                     Items.Add(item);
                 }
+
+                ItemThreshold = 2;
             }
             catch (Exception ex)
             {
@@ -72,6 +75,15 @@ namespace ShellApp.ViewModels
             }
         }
 
+        public int ItemThreshold
+        {
+            get => _itemThreshold;
+            set
+            {
+                SetProperty(ref _itemThreshold, value);
+            }
+        }
+
         public IDataStore<Item> DataStore { get; }
 
         private async void OnAddItem(object obj)
@@ -88,13 +100,43 @@ namespace ShellApp.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
-        public Command LoadMoreCommand => loadMoreCommand ??= new Command(async () =>
+        public Command LoadMoreCommand => _loadMoreCommand ??= new Command(async () =>
         {
-            var items = await DataStore.GetItemsAsync(true);
-            foreach (var item in items)
+            if (IsLoading)
+                return;
+
+            IsLoading = true;
+
+            try
+            { 
+                var items = await DataStore.GetItemsAsync(10, Items.Count);
+
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    foreach (var item in items)
+                    {
+                        Items.Add(item);
+                    }
+                });
+
+                var count = items.Count();
+
+                if(count == 0)
+                {
+                    ItemThreshold = -1;
+                    return;
+                }
+            }
+            catch (Exception ex)
             {
-                Items.Add(item);
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsLoading = false;
             }
         });
+
+        public bool IsLoading { get; private set; }
     }
 }
