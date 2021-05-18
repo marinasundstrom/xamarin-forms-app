@@ -4,6 +4,16 @@ Mobile App with Web API backend. Based on the Shell app project template.
 
 Using [Tye](https://github.com/dotnet/tye) for easy development and deployment.
 
+## The Mobile App
+
+In the app you can:
+
+* View items and their pictures in a view that is infinitely scrollable.
+* Add an item with at picture that is getting uploaded to Azure Blob storage. (Azurite emulator).
+* Delete items (Soft delete)
+
+The app is based on the Shell app template, with the addition of uploading images, and changes to interfaces in code.
+
 ## Contents
 
 ### Mobile App
@@ -57,16 +67,3 @@ tye run
 ## To Do
 * Improve this sample project
 * Add authentication
-
-## Other
-
-Things to use later...
-
-### Incremental loading
-
-Add this to the CollectionView to enable incremental loading in the control:
-
-```xaml
-RemainingItemsThreshold="5"
-RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
-```
