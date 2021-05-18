@@ -20,6 +20,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 
     <ItemGroup>
@@ -39,6 +41,7 @@
       <Folder Include="Markup\" />
       <Folder Include="Resources\" />
       <Folder Include="Resources\Fonts\" />
+      <Folder Include="Events\" />
     </ItemGroup>
     <ItemGroup>
       <None Remove="Resources\Fonts\Font AwesomeIcons.otf" />

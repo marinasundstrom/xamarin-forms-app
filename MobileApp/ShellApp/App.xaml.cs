@@ -57,6 +57,8 @@ namespace ShellApp
             else
                 services.AddSingleton<IDataStore<Item>, AzureDataStore>();
 
+            services.AddSingleton<IMessageBus>(MessageBus.Instance);
+
             services.AddSingleton<AppShell>();
 
             services.AddSingleton<AboutPage>();

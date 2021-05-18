@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ShellApp.Client;
+using ShellApp.Events;
 using ShellApp.Services;
 using Xamarin.Forms;
 
@@ -15,10 +16,12 @@ namespace ShellApp.ViewModels
         private string description;
         private string pictureUri;
         private Command deleteItemCommand;
+        private readonly IMessageBus messageBus;
 
-        public ItemDetailViewModel(IDataStore<Item> dataStore)
+        public ItemDetailViewModel(IDataStore<Item> dataStore, IMessageBus messageBus)
         {
             DataStore = dataStore;
+            this.messageBus = messageBus;
         }
 
         public string Id { get; set; }
@@ -88,6 +91,12 @@ namespace ShellApp.ViewModels
                     var items = await DataStore.DeleteItemAsync(ItemId);
 
                     await Shell.Current.Navigation.PopAsync();
+
+                    messageBus.Publish(new ItemDeletedEvent
+                    {
+                        Id = ItemId,
+                        Text = text
+                    });
 
                     break;
             }
