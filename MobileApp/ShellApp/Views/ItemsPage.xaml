@@ -39,7 +39,7 @@
                         <Image
                             Aspect="AspectFill"
                             BackgroundColor="LightGray"
-                            HeightRequest="100"
+                            HeightRequest="180"
                             Source="{Binding PictureUri}" />
                         <Label
                             FontSize="16"

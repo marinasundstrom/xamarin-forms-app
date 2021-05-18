@@ -32,6 +32,13 @@ Following the Clean Architecture pattern and CQRS, it enables the creation of a 
 
 **SQL Server is optional for x86-64*
 
+## Screenshots
+
+| About         | Browse        | Item Details  |
+| ------------- | --------------| --------------| 
+| <img src="/Screenshots/AboutView.png" width="200px;" /> | <img src="/Screenshots/BrowseView.png" width="200px;" /> | <img src="/Screenshots/ItemDetailView.png" width="200px;" /> | 
+
+
 ## Development
 
 ### Requirements
