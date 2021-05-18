@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.Android", "ShellApp.Android\ShellApp.Android.csproj", "{D3BD063C-985C-4341-AFF0-81FCCB560BBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.Android", "MobileApp\ShellApp.Android\ShellApp.Android.csproj", "{D3BD063C-985C-4341-AFF0-81FCCB560BBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.iOS", "ShellApp.iOS\ShellApp.iOS.csproj", "{AAB7B61B-C372-45E4-AFB0-FA252ADA38C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp.iOS", "MobileApp\ShellApp.iOS\ShellApp.iOS.csproj", "{AAB7B61B-C372-45E4-AFB0-FA252ADA38C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp", "ShellApp\ShellApp.csproj", "{1EC8C770-28A1-4086-BB22-6B45EC93FF28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellApp", "MobileApp\ShellApp\ShellApp.csproj", "{1EC8C770-28A1-4086-BB22-6B45EC93FF28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6974FF6E-FCBD-4053-A99A-6A73F966FF9F}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Backend\Domain\Domain.csproj", "{C8189D1C-EDCB-427C-BCBE-23CCBDFB528F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Backend\Infrastructure\Infrastructure.csproj", "{AC4895C4-EC41-4BC3-B5E4-5F387D06B506}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MobileApp", "MobileApp", "{C8B8B7BF-2660-40E9-B1C3-FF635896E911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,5 +178,8 @@ Global
 		{9063402A-8E33-4584-9728-A890BD6A57F3} = {81A0ED66-924D-403B-9E4B-21C3930FE68F}
 		{C8189D1C-EDCB-427C-BCBE-23CCBDFB528F} = {81A0ED66-924D-403B-9E4B-21C3930FE68F}
 		{AC4895C4-EC41-4BC3-B5E4-5F387D06B506} = {81A0ED66-924D-403B-9E4B-21C3930FE68F}
+		{1EC8C770-28A1-4086-BB22-6B45EC93FF28} = {C8B8B7BF-2660-40E9-B1C3-FF635896E911}
+		{D3BD063C-985C-4341-AFF0-81FCCB560BBE} = {C8B8B7BF-2660-40E9-B1C3-FF635896E911}
+		{AAB7B61B-C372-45E4-AFB0-FA252ADA38C7} = {C8B8B7BF-2660-40E9-B1C3-FF635896E911}
 	EndGlobalSection
 EndGlobal
