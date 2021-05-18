@@ -13,9 +13,9 @@ namespace ShellApp.Application.Items.CommandHandlers
     public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, ItemDto>
     {
         private readonly IDomainEventService domainEventService;
-        private readonly IApplicationContext context;
+        private readonly IApplicationDataContext context;
 
-        public CreateItemCommandHandler(IDomainEventService domainEventService, IApplicationContext context)
+        public CreateItemCommandHandler(IDomainEventService domainEventService, IApplicationDataContext context)
         {
             this.domainEventService = domainEventService;
             this.context = context;

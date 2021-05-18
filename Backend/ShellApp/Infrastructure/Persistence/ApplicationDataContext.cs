@@ -10,14 +10,14 @@ using ShellApp.Domain.Entities;
 
 namespace ShellApp.Infrastructure.Persistence
 {
-    public class ApplicationContext : DbContext, IApplicationContext
+    public class ApplicationDataContext : DbContext, IApplicationDataContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
         private readonly IDomainEventService _domainEventService;
 
-        public ApplicationContext(
-            DbContextOptions<ApplicationContext> options,
+        public ApplicationDataContext(
+            DbContextOptions<ApplicationDataContext> options,
             ICurrentUserService currentUserService,
             IDomainEventService domainEventService,
             IDateTime dateTime) : base(options)

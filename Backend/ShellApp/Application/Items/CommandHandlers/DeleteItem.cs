@@ -11,9 +11,9 @@ namespace ShellApp.Application.Items.CommandHandlers
 
     public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
-        private readonly IApplicationContext context;
+        private readonly IApplicationDataContext context;
 
-        public DeleteItemCommandHandler(IApplicationContext context)
+        public DeleteItemCommandHandler(IApplicationDataContext context)
         {
             this.context = context;
         }

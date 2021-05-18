@@ -13,9 +13,9 @@ namespace ShellApp.Application.Items.QueryHandlers
 {
     public class GetItemsQueryHandler : IRequestHandler<GetItemsQuery, IEnumerable<ItemDto>>
     {
-        private readonly IApplicationContext context;
+        private readonly IApplicationDataContext context;
 
-        public GetItemsQueryHandler(IApplicationContext context)
+        public GetItemsQueryHandler(IApplicationDataContext context)
         {
             this.context = context;
         }
