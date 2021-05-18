@@ -25,6 +25,9 @@ services:
   bindings:
     - port: 1433
       connectionString: Server=${host},${port};Database=ShellApp;User Id=sa;Password=${env:MSSQL_SA_PASSWORD}
+  volumes:
+    - source: .data/sql-edge
+      target: /var/opt/mssql/data
 
 # - name: mssql
 #   image: mcr.microsoft.com/mssql/server:2019-latest
@@ -36,6 +39,9 @@ services:
 #   bindings:
 #     - port: 1433
 #       connectionString: Server=${host},${port};Database=ShellApp;User Id=sa;Password=${env:SA_PASSWORD}
+#   volumes:
+#     - source: .data/mssql
+#       target: /var/opt/mssql
 
 - name: azurite
   image: mcr.microsoft.com/azure-storage/azurite
