@@ -13,9 +13,15 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Items\Items.csproj" />
     <ProjectReference Include="..\Items.Contracts\Items.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Hubs\" />
+    <None Remove="Services\" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ShellApp.Client;
 using ShellApp.ViewModels;
 using System.Net.Http;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace ShellApp
 {
@@ -77,6 +78,20 @@ namespace ShellApp
             services.AddTransient<NewItemViewModel>();
 
             services.AddSingleton<Application>(this);
+
+            services.AddSingleton(sp => new HubConnectionBuilder()
+                .WithUrl($"{AzureBackendUrl}/hubs/items", (opts) =>
+                {
+                    opts.HttpMessageHandlerFactory = (message) =>
+                    {
+                        if (message is HttpClientHandler clientHandler)
+                            // bypass SSL certificate
+                            clientHandler.ServerCertificateCustomValidationCallback +=
+                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                        return message;
+                    };
+                })
+                .Build());
         }
 
         protected override void OnStart()

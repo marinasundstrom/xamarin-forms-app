@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
   </ItemGroup>
 
     <ItemGroup>
@@ -47,6 +48,8 @@
       <None Remove="Resources\Fonts\Font AwesomeIcons.otf" />
       <None Remove="Resources\Fonts\Font AwesomeRegular.otf" />
       <None Remove="Resources\Fonts\FontAwesomeSolid.otf" />
+      <None Remove="Microsoft.AspNetCore.SignalR" />
+      <None Remove="Microsoft.AspNetCore.SignalR.Client" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Resources\Fonts\FontAwesomeIcons.otf" />

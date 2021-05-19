@@ -33,6 +33,8 @@ namespace ShellApp.Web
                 .AddItemsControllers()
                 .AddNewtonsoftJson();
 
+            services.AddSignalR();
+
             services.AddHttpContextAccessor();
 
             BlobClientOptions options = new BlobClientOptions(BlobClientOptions.ServiceVersion.V2019_07_07);
@@ -61,6 +63,7 @@ namespace ShellApp.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapItemsEndpoints();
             });
         }
     }

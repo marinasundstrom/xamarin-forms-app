@@ -15,6 +15,7 @@ using ShellApp.Events;
 
 using System.Reactive.Linq;
 using Xamarin.CommunityToolkit.UI.Views.Options;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace ShellApp.ViewModels
 {
@@ -23,7 +24,7 @@ namespace ShellApp.ViewModels
         private Item _selectedItem;
         private int _itemThreshold;
         private Command _loadMoreCommand;
-        private readonly IMessageBus messageBus;
+        private readonly HubConnection hubConnection;
         private readonly IDisposable onItemDeletedEventSubscription;
 
         public ObservableCollection<Item> Items { get; }
@@ -31,10 +32,11 @@ namespace ShellApp.ViewModels
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel(IDataStore<Item> dataStore, IMessageBus messageBus)
+        public ItemsViewModel(IDataStore<Item> dataStore, IMessageBus messageBus, HubConnection hubConnection)
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
+
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<Item>(OnItemSelected);
@@ -42,9 +44,23 @@ namespace ShellApp.ViewModels
             AddItemCommand = new Command(OnAddItem);
             DataStore = dataStore;
 
-            this.messageBus = messageBus;
+            this.hubConnection = hubConnection;
 
             onItemDeletedEventSubscription = messageBus.WhenPublished<ItemDeletedEvent>().Subscribe(OnItemDeletedEvent);
+
+            hubConnection.On("ItemCreated", (Item item) =>
+            {
+                Items.Add(item);
+            });
+
+            hubConnection.On("ItemDeleted", (string id) =>
+            {
+                var item = Items.FirstOrDefault(item => item.Id == id);
+                if(item != null)
+                {
+                    Items.Remove(item);
+                }
+            });
         }
 
         private void OnItemDeletedEvent(ItemDeletedEvent obj)
@@ -81,10 +97,15 @@ namespace ShellApp.ViewModels
             }
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
             IsBusy = true;
             SelectedItem = null;
+
+            if (hubConnection.State == HubConnectionState.Connected || hubConnection.State == HubConnectionState.Connecting)
+                return;
+
+            await this.hubConnection.StartAsync();
         }
 
         public Item SelectedItem
@@ -122,9 +143,11 @@ namespace ShellApp.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
-        public void Dispose()
+        public async void Dispose()
         {
             onItemDeletedEventSubscription.Dispose();
+
+            await this.hubConnection.StopAsync();
         }
 
         public Command LoadMoreCommand => _loadMoreCommand ??= new Command(async () =>

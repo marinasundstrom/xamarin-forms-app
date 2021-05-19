@@ -17,7 +17,9 @@ namespace ShellApp.Items.Application.CommandHandlers
         private readonly IApplicationDataContext context;
         private readonly IImageUploader imageUploader;
 
-        public CreateItemCommandHandler(IDomainEventService domainEventService, IApplicationDataContext context, IImageUploader imageUploader)
+        public CreateItemCommandHandler(
+            IDomainEventService domainEventService, IApplicationDataContext context,
+            IImageUploader imageUploader)
         {
             this.domainEventService = domainEventService;
             this.context = context;
@@ -44,7 +46,9 @@ namespace ShellApp.Items.Application.CommandHandlers
 
             await domainEventService.Publish(new ItemCreatedEvent(item.Id));
 
-            return Mappings.Map(item);
+            var itemDto = Mappings.Map(item);
+
+            return itemDto;
         }
     }
 }
