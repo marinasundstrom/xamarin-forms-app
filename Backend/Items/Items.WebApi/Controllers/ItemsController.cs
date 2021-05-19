@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShellApp.Items.Commands;
 using ShellApp.Items.Queries;
 
-namespace ShellApp.Controllers
+namespace ShellApp.Items.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

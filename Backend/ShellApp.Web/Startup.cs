@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShellApp.Application.Common.Interfaces;
 using ShellApp.Infrastructure;
-using ShellApp.Items;
+using ShellApp.Items.WebApi;
 using ShellApp.Web.Services;
 
 namespace ShellApp.Web
@@ -30,7 +30,7 @@ namespace ShellApp.Web
                     .AddScoped<IImageUploader, ImageUploader>();
 
             services.AddControllers()
-                //.AddItems()
+                .AddItemsControllers()
                 .AddNewtonsoftJson();
 
             services.AddHttpContextAccessor();

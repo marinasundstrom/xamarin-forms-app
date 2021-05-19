@@ -11,6 +11,6 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts.Common\Contracts.Common.csproj" />
+    <ProjectReference Include="..\..\Contracts.Common\Contracts.Common.csproj" />
   </ItemGroup>
 </Project>

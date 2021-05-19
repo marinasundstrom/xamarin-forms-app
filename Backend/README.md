@@ -2,9 +2,8 @@
 
 ## Projects
 
-* **ShellApp.Web** - contains the Web API, i.e. controllers.
-* **Items** - contains the actual behavior of the application, handlers for command and queries. Regard it as its own module. The naming could be better.
-* **Items.Contracts** - contains the contracts. that is commands, queries, and domain events.
+* **ShellApp.Web** - contains the actual Web app, hosting a Web API.
+* **Items** - contains the behavior and implementation of the feature handling items.
 
 **Items*** is a module representing a bounded context.
 

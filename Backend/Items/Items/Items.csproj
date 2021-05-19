@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Items.Contracts\Items.Contracts.csproj" />
-    <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Application.Common\Application.Common.csproj" />
+    <ProjectReference Include="..\..\Domain\Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
