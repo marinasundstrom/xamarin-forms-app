@@ -24,6 +24,7 @@ The app is based on the Shell app template, with the addition of uploading image
 ### Backend
 
 * Web API, with Open API definition (Swagger)
+* SignalR for sending real-time notifications to client
 * Structured according to Command, Query, Request Segretation (CQRS) using Mediator pattern.
 * Azure SQL Edge (ARM64*) for storage - EF Core for ORM
 * Azurite Storage emulator for Blob storage
