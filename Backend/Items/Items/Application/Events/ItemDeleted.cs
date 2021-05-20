@@ -6,7 +6,7 @@ using ShellApp.Application.Common.Models;
 using ShellApp.Items.Application.Common.Interfaces;
 using ShellApp.Items.Events;
 
-namespace ShellApp.Items.Application.EventHandlers
+namespace ShellApp.Items.Application.Events
 {
     public class ItemDeletedEventHandler : INotificationHandler<DomainEventNotification<ItemDeletedEvent>>
     {

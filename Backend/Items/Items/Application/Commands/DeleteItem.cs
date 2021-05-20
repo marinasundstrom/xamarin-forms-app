@@ -6,18 +6,19 @@ using ShellApp.Items.Commands;
 using ShellApp.Items.Events;
 using ShellApp.Domain.Exceptions;
 
-namespace ShellApp.Items.Application.CommandHandlers
+namespace ShellApp.Items.Application.Commands
 {
-    public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, string>
+
+    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IApplicationDataContext context;
 
-        public UpdateItemCommandHandler(IApplicationDataContext context)
+        public DeleteItemCommandHandler(IApplicationDataContext context)
         {
             this.context = context;
         }
 
-        public async Task<string> Handle(UpdateItemCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
             var item = await context.Items.FindAsync(request.ItemId);
 
@@ -26,15 +27,13 @@ namespace ShellApp.Items.Application.CommandHandlers
                 throw new NotFoundException();
             }
 
-            Mappings.Map(request, item);
-
-            item.DomainEvents.Add(new ItemUpdatedEvent(item.Id));
+            item.DomainEvents.Add(new ItemDeletedEvent(item.Id));
 
             context.Items.Remove(item);
 
             await context.SaveChangesAsync();
 
-            return item.Id;
+            return Unit.Value;
         }
     }
 }

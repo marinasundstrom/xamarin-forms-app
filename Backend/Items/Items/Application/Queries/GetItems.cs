@@ -9,7 +9,7 @@ using ShellApp.Items.Queries;
 
 using static ShellApp.Items.Application.Mappings;
 
-namespace ShellApp.Items.Application.QueryHandlers
+namespace ShellApp.Items.Application.Queries
 {
     public class GetItemsQueryHandler : IRequestHandler<GetItemsQuery, IEnumerable<ItemDto>>
     {

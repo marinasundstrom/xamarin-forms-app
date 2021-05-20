@@ -8,7 +8,7 @@ using ShellApp.Items.Application.Common.Interfaces;
 using ShellApp.Items.Events;
 using ShellApp.Items.Queries;
 
-namespace ShellApp.Items.Application.EventHandlers
+namespace ShellApp.Items.Application.Events
 {
     public class ItemCreatedEventHandler : INotificationHandler<DomainEventNotification<ItemCreatedEvent>>
     {
