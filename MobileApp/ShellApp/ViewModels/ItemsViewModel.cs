@@ -24,15 +24,16 @@ namespace ShellApp.ViewModels
         private Item _selectedItem;
         private int _itemThreshold;
         private Command _loadMoreCommand;
-        private readonly HubConnection hubConnection;
         private readonly IDisposable onItemDeletedEventSubscription;
+        private readonly IItemsNotificationService itemsNotificationService;
 
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel(IDataStore<Item> dataStore, IMessageBus messageBus, HubConnection hubConnection)
+        public ItemsViewModel(IItemsDataService<Item> dataStore,
+            IMessageBus messageBus, IItemsNotificationService itemsNotificationService)
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
@@ -43,24 +44,26 @@ namespace ShellApp.ViewModels
 
             AddItemCommand = new Command(OnAddItem);
             DataStore = dataStore;
-
-            this.hubConnection = hubConnection;
+            this.itemsNotificationService = itemsNotificationService;
 
             onItemDeletedEventSubscription = messageBus.WhenPublished<ItemDeletedEvent>().Subscribe(OnItemDeletedEvent);
 
-            hubConnection.On("ItemCreated", (Item item) =>
-            {
-                Items.Add(item);
-            });
+            itemsNotificationService.ItemCreated += OnNotifiedItemCreated;
+            itemsNotificationService.ItemDeleted += OnNotifiedItemDeleted;
+        }
 
-            hubConnection.On("ItemDeleted", (string id) =>
+        private void OnNotifiedItemCreated(object sender, Item item)
+        {
+            Items.Add(item);
+        }
+
+        private void OnNotifiedItemDeleted(object sender, string id)
+        {
+            var item = Items.FirstOrDefault(item => item.Id == id);
+            if (item != null)
             {
-                var item = Items.FirstOrDefault(item => item.Id == id);
-                if(item != null)
-                {
-                    Items.Remove(item);
-                }
-            });
+                Items.Remove(item);
+            }
         }
 
         private void OnItemDeletedEvent(ItemDeletedEvent obj)
@@ -102,10 +105,10 @@ namespace ShellApp.ViewModels
             IsBusy = true;
             SelectedItem = null;
 
-            if (hubConnection.State == HubConnectionState.Connected || hubConnection.State == HubConnectionState.Connecting)
+            if (itemsNotificationService.IsConnected)
                 return;
 
-            await this.hubConnection.StartAsync();
+            await this.itemsNotificationService.ConnectAsync();
         }
 
         public Item SelectedItem
@@ -127,7 +130,7 @@ namespace ShellApp.ViewModels
             }
         }
 
-        public IDataStore<Item> DataStore { get; }
+        public IItemsDataService<Item> DataStore { get; }
 
         private async void OnAddItem(object obj)
         {
@@ -147,7 +150,10 @@ namespace ShellApp.ViewModels
         {
             onItemDeletedEventSubscription.Dispose();
 
-            await this.hubConnection.StopAsync();
+            itemsNotificationService.ItemCreated -= OnNotifiedItemCreated;
+            itemsNotificationService.ItemDeleted -= OnNotifiedItemDeleted;
+
+            await this.itemsNotificationService.DisconnectAsync();
         }
 
         public Command LoadMoreCommand => _loadMoreCommand ??= new Command(async () =>

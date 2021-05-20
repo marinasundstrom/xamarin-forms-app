@@ -18,7 +18,7 @@ namespace ShellApp.ViewModels
         private Command deleteItemCommand;
         private readonly IMessageBus messageBus;
 
-        public ItemDetailViewModel(IDataStore<Item> dataStore, IMessageBus messageBus)
+        public ItemDetailViewModel(IItemsDataService<Item> dataStore, IMessageBus messageBus)
         {
             DataStore = dataStore;
             this.messageBus = messageBus;
@@ -57,7 +57,7 @@ namespace ShellApp.ViewModels
             }
         }
 
-        public IDataStore<Item> DataStore { get; }
+        public IItemsDataService<Item> DataStore { get; }
 
         public async void LoadItemId(string itemId)
         {

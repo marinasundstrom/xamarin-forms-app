@@ -17,7 +17,7 @@ namespace ShellApp.ViewModels
         private string description;
         private string photoPath;
 
-        public NewItemViewModel(IDataStore<Item> dataStore)
+        public NewItemViewModel(IItemsDataService<Item> dataStore)
         {
             PickPhotoCommand = new Command(async () => await PickPhotoAsync());
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -50,7 +50,7 @@ namespace ShellApp.ViewModels
         public Command PickPhotoCommand { get; }
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public IDataStore<Item> DataStore { get; }
+        public IItemsDataService<Item> DataStore { get; }
 
         public string PhotoPath
         {

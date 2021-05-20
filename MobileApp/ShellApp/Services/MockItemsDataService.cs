@@ -7,11 +7,11 @@ using ShellApp.Client;
 
 namespace ShellApp.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockItemsDataService : IItemsDataService<Item>
     {
         readonly List<Item> items;
 
-        public MockDataStore()
+        public MockItemsDataService()
         {
             items = new List<Item>()
             {

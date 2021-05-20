@@ -54,9 +54,9 @@ namespace ShellApp
                 .ConfigurePrimaryHttpMessageHandler(GetInsecureHandler);
 
             if (UseMockDataStore)
-                services.AddSingleton<IDataStore<Item>, MockDataStore>();
+                services.AddSingleton<IItemsDataService<Item>, MockItemsDataService>();
             else
-                services.AddSingleton<IDataStore<Item>, AzureDataStore>();
+                services.AddSingleton<IItemsDataService<Item>, ItemsDataService>();
 
             services.AddSingleton<IMessageBus>(MessageBus.Instance);
 
@@ -79,7 +79,7 @@ namespace ShellApp
 
             services.AddSingleton<Application>(this);
 
-            services.AddSingleton(sp => new HubConnectionBuilder()
+            services.AddTransient<IItemsNotificationService>(sp => new ItemsNotificationService(new HubConnectionBuilder()
                 .WithUrl($"{AzureBackendUrl}/hubs/items", (opts) =>
                 {
                     opts.HttpMessageHandlerFactory = (message) =>
@@ -91,7 +91,7 @@ namespace ShellApp
                         return message;
                     };
                 })
-                .Build());
+                .Build()));
         }
 
         protected override void OnStart()

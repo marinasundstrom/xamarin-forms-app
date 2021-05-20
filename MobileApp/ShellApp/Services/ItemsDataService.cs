@@ -10,12 +10,12 @@ using System.IO;
 
 namespace ShellApp.Services
 {
-    public class AzureDataStore : IDataStore<Item>
+    public class ItemsDataService : IItemsDataService<Item>
     {
         IEnumerable<Item> items;
         private readonly IItemsClient client;
 
-        public AzureDataStore(IItemsClient client)
+        public ItemsDataService(IItemsClient client)
         {
             this.client = client;
             items = new List<Item>();

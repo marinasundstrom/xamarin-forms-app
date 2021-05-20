@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShellApp.Services
 {
-    public interface IDataStore<T>
+    public interface IItemsDataService<T>
     {
         Task<bool> CreateItemAsync(string text, string description, Stream picture);
         Task<bool> UpdateItemAsync(string id, string text, string description);
