@@ -10,9 +10,9 @@ namespace ShellApp.Items.Application.Commands
 {
     public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, string>
     {
-        private readonly IApplicationDataContext context;
+        private readonly IApplicationDbContext context;
 
-        public UpdateItemCommandHandler(IApplicationDataContext context)
+        public UpdateItemCommandHandler(IApplicationDbContext context)
         {
             this.context = context;
         }

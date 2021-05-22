@@ -9,7 +9,7 @@ namespace ShellApp.Items.Infrastructure.Persistence
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDataContext>(
+            services.AddDbContext<ApplicationDbContext>(
                 (sp, options) =>
                 {
                     options.UseSqlServer(configuration.GetConnectionString("mssql"));
@@ -18,7 +18,7 @@ namespace ShellApp.Items.Infrastructure.Persistence
 #endif
                 });
 
-            services.AddScoped<IApplicationDataContext>(sp => sp.GetRequiredService<ApplicationDataContext>());
+            services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
             return services;
         }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace ShellApp.Items.Infrastructure.Persistence
 {
-    public static class ApplicationDataContextSeed
+    public static class ApplicationDbContextSeed
     {
         public static async Task SeedAsync(this IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDataContext>();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             //await dbContext.Database.EnsureDeletedAsync();
 

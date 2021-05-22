@@ -14,11 +14,11 @@ namespace ShellApp.Items.Application.Commands
     public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, ItemDto>
     {
         private readonly IDomainEventService domainEventService;
-        private readonly IApplicationDataContext context;
+        private readonly IApplicationDbContext context;
         private readonly IImageUploader imageUploader;
 
         public CreateItemCommandHandler(
-            IDomainEventService domainEventService, IApplicationDataContext context,
+            IDomainEventService domainEventService, IApplicationDbContext context,
             IImageUploader imageUploader)
         {
             this.domainEventService = domainEventService;

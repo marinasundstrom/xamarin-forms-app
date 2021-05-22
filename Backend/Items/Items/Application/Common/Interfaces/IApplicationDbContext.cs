@@ -5,7 +5,7 @@ using ShellApp.Items.Domain.Entities;
 
 namespace ShellApp.Items.Application.Common.Interfaces
 {
-    public interface IApplicationDataContext
+    public interface IApplicationDbContext
     {
         DbSet<Item> Items { get; }
 
