@@ -10,6 +10,7 @@ using ShellApp.Client;
 using ShellApp.ViewModels;
 using System.Net.Http;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Threading.Tasks;
 
 namespace ShellApp
 {
@@ -41,17 +42,25 @@ namespace ShellApp
             ViewModelLocator.AppServiceProvider = host.Services;
             DIDataTemplate.AppServiceProvider = host.Services;
 
-            MainPage = host.Services.GetService<AppShell>();
+            //var authToken = await SecureStorage.GetAsync("authToken");
+
+            MainPage = host.Services.GetService<LoginPage>();
         }
 
         private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddHttpClient<IItemsClient, ItemsClient>(
-                (provider, client) =>
+            services.AddScoped<CheckUnauthorizedHandler>();
+
+            services.AddHttpClient<IItemsClient>((provider, client) =>
                 {
                     client.BaseAddress = new Uri(AzureBackendUrl);
                 })
-                .ConfigurePrimaryHttpMessageHandler(GetInsecureHandler);
+                .AddTypedClient<IItemsClient>((http, sp) => new ItemsClient(http)
+                {
+                    RetrieveAuthorizationToken = () => SecureStorage.GetAsync("AuthToken")
+                })
+            .ConfigurePrimaryHttpMessageHandler(GetInsecureHandler)
+            .AddHttpMessageHandler<CheckUnauthorizedHandler>();
 
             if (UseMockDataStore)
                 services.AddSingleton<IItemsDataService<Item>, MockItemsDataService>();
@@ -110,12 +119,14 @@ namespace ShellApp
         // the HttpClient object is constructed in a shared project.
         public HttpClientHandler GetInsecureHandler()
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
+            HttpClientHandler handler = new HttpClientHandler
             {
-                if (cert.Issuer.Equals("CN=localhost"))
-                    return true;
-                return errors == System.Net.Security.SslPolicyErrors.None;
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
+                {
+                    if (cert.Issuer.Equals("CN=localhost"))
+                        return true;
+                    return errors == System.Net.Security.SslPolicyErrors.None;
+                }
             };
             return handler;
         }

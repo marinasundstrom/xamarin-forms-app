@@ -1,0 +1,108 @@
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using ShellApp.Application.Common.Interfaces;
+using ShellApp.Identity.Application.Common.Interfaces;
+using ShellApp.Identity.Domain.Common;
+using ShellApp.Identity.Domain.Entities;
+
+namespace ShellApp.Identity.Infrastructure.Persistence
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+    {
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IDateTime _dateTime;
+        private readonly IDomainEventService _domainEventService;
+
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options,
+            ICurrentUserService currentUserService,
+            IDomainEventService domainEventService,
+            IDateTime dateTime) : base(options)
+        {
+            _currentUserService = currentUserService;
+            _domainEventService = domainEventService;
+            _dateTime = dateTime;
+        }
+
+
+#nullable disable
+
+        //public DbSet<ApplicationUser> Users { get; set; }
+
+#nullable restore
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedBy = _currentUserService.UserId!;
+                        entry.Entity.Created = _dateTime.Now;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModified = _dateTime.Now;
+                        break;
+
+                    case EntityState.Deleted:
+                        if (entry.Entity is ISoftDelete softDelete)
+                        {
+                            softDelete.DeletedBy = _currentUserService.UserId;
+                            softDelete.Deleted = _dateTime.Now;
+
+                            entry.State = EntityState.Modified;
+                        }
+                        break;
+                }
+            }
+
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            await DispatchEvents();
+
+            return result;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+#if DEBUG
+            optionsBuilder.LogTo(Console.WriteLine);
+#endif
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(builder);
+        }
+
+        private async Task DispatchEvents()
+        {
+            while (true)
+            {
+                var domainEventEntity = ChangeTracker.Entries<IHasDomainEvent>()
+                    .Select(x => x.Entity.DomainEvents)
+                    .SelectMany(x => x)
+                    .Where(domainEvent => !domainEvent.IsPublished)
+                    .FirstOrDefault();
+                if (domainEventEntity == null) break;
+
+                domainEventEntity.IsPublished = true;
+                await _domainEventService.Publish(domainEventEntity);
+            }
+        }
+    }
+}

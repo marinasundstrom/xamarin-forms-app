@@ -72,6 +72,16 @@ tye run
 
 2. Launch the Simulator and run the mobile app.
 
+### Create an account
+
+In order to log into the app you need an account.
+
+In your browser, go to the *Swagger UI* at https://localhost:5020/swagger/.
+
+View ```Identity``` > ```POST```. Click *"Try it out"*, enter an email address, any will do. Then, enter a password of your choice. Send the request, and your account will be created.
+
+Use these credentials to log into the app.
+
 ## To Do
 * Improve this sample project
 * Add authentication

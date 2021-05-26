@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using ShellApp.Application.Common.Interfaces;
 
@@ -13,6 +14,6 @@ namespace ShellApp.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "N/A";
+        public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(JwtClaimTypes.Subject);
     }
 }

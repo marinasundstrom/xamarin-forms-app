@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ShellApp.Items.Application.Common.Interfaces;
 using ShellApp.Items.Domain.Entities;
 using System;
@@ -18,6 +19,8 @@ namespace ShellApp.Items.Infrastructure.Persistence
             //await dbContext.Database.EnsureDeletedAsync();
 
             await dbContext.Database.EnsureCreatedAsync();
+
+            await dbContext.Database.MigrateAsync();
         }
     }
 }

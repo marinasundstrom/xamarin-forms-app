@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShellApp.Items.Commands;
@@ -12,6 +13,7 @@ namespace ShellApp.Items.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("IdentityServerAccessToken")]
     public class ItemsController : ControllerBase
     {
         private readonly IMediator mediator;

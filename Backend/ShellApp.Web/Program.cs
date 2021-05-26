@@ -13,6 +13,7 @@ namespace ShellApp.Web
         {
             var app = CreateHostBuilder(args).Build();
 
+            await ShellApp.Identity.Infrastructure.Persistence.ApplicationDbContextSeed.SeedAsync(app.Services);
             await app.Services.SeedAsync();
 
             await app.RunAsync();

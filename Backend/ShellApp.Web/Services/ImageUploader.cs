@@ -31,6 +31,7 @@ namespace ShellApp.Web.Services
 
         private static string CreateBlobUri(string name)
         {
+            // TODO: Define somewhere else
             return $"http://127.0.0.1:10000/devstoreaccount1/images/{name}";
         }
     }

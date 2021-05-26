@@ -12,10 +12,18 @@ namespace ShellApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private LoginViewModel _loginViewModel;
+
         public LoginPage(LoginViewModel loginViewModel)
         {
             InitializeComponent();
-            this.BindingContext = loginViewModel;
+            BindingContext = _loginViewModel = loginViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _loginViewModel.OnAppearing();
         }
     }
 }

@@ -33,18 +33,15 @@ namespace ShellApp.Items.Application.Commands
                 Id = Guid.NewGuid().ToString(),
                 Text = request.Text,
                 Description = request.Description,
-                PictureUri = ""
             };
-
-            context.Items.Add(item);
-
-            await context.SaveChangesAsync();
 
             item.PictureUri = await imageUploader.UploadImageAsync(item.Id, request.Picture, cancellationToken);
 
-            await context.SaveChangesAsync();
+            context.Items.Add(item);
 
-            await domainEventService.Publish(new ItemCreatedEvent(item.Id));
+            item.DomainEvents.Add(new ItemCreatedEvent(item.Id));
+
+            await context.SaveChangesAsync();
 
             var itemDto = Mappings.Map(item);
 

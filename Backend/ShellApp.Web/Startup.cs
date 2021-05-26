@@ -8,7 +8,11 @@ using Microsoft.Extensions.Hosting;
 using ShellApp.Application.Common.Interfaces;
 using ShellApp.Infrastructure;
 using ShellApp.Items.WebApi;
+using ShellApp.Identity.WebApi;
 using ShellApp.Web.Services;
+using NSwag;
+using System.Linq;
+using NSwag.Generation.Processors.Security;
 
 namespace ShellApp.Web
 {
@@ -25,11 +29,13 @@ namespace ShellApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(Configuration)
+                    .AddMyIdentity(Configuration)
                     .AddItems(Configuration)
                     .AddScoped<ICurrentUserService, CurrentUserService>()
                     .AddScoped<IImageUploader, ImageUploader>();
 
-            services.AddControllers()
+            services.AddControllersWithViews() //.AddControllers()
+                .AddIdentityControllers()
                 .AddItemsControllers()
                 .AddNewtonsoftJson();
 
@@ -44,7 +50,31 @@ namespace ShellApp.Web
 
             services.AddScoped<IImageUploader, ImageUploader>();
 
-            services.AddOpenApiDocument(cfg => { cfg.SchemaNameGenerator = new CustomSchemaNameGenerator(); });
+            services.AddOpenApiDocument(configure =>
+            {
+                configure.Title = "ShellApp API";
+                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                {
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the textbox: Bearer {your JWT token}."
+                });
+
+                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+
+                configure.SchemaNameGenerator = new CustomSchemaNameGenerator();
+            });
+
+
+            // add CORS policy for non-IdentityServer endpoints
+            services.AddCors(options =>
+            {
+                options.AddPolicy("api", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,14 +85,25 @@ namespace ShellApp.Web
             }
 
             app.UseHttpsRedirection();
+
+
+            app.UseCors("api");
+
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapIdentityEndpoints();
                 endpoints.MapItemsEndpoints();
             });
         }
