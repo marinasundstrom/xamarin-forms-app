@@ -88,10 +88,14 @@ namespace ShellApp
 
             services.AddSingleton<Application>(this);
 
-            services.AddTransient<IItemsNotificationService>(sp => new ItemsNotificationService(new HubConnectionBuilder()
-                .WithUrl($"{AzureBackendUrl}/hubs/items", (opts) =>
+            services.AddTransient<IItemsNotificationService>(sp =>
+            {
+                var connection = new HubConnectionBuilder()
+                .WithUrl($"{AzureBackendUrl}/hubs/items", (options) =>
                 {
-                    opts.HttpMessageHandlerFactory = (message) =>
+                    options.AccessTokenProvider = () => SecureStorage.GetAsync("AuthToken");
+
+                    options.HttpMessageHandlerFactory = (message) =>
                     {
                         if (message is HttpClientHandler clientHandler)
                             // bypass SSL certificate
@@ -100,7 +104,11 @@ namespace ShellApp
                         return message;
                     };
                 })
-                .Build()));
+                .WithAutomaticReconnect()
+                .Build();
+
+                return new ItemsNotificationService(connection);
+            });
         }
 
         protected override void OnStart()

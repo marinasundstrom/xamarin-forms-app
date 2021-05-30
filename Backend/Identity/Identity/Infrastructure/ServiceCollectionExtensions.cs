@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using ShellApp.Identity.Application.Common.Interfaces;
 using ShellApp.Identity.Domain.Entities;
 using ShellApp.Identity.Infrastructure.Persistence;
@@ -46,7 +48,12 @@ namespace ShellApp.Identity.Infrastructure
 
             services.AddTransient<IIdentityService, IdentityService>();
 
-            services.AddAuthentication();
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+
+            services.TryAddEnumerable(
+               ServiceDescriptor.Singleton<IPostConfigureOptions<JwtBearerOptions>,
+                   ConfigureJwtBearerOptions>());
 
             return services;
         }

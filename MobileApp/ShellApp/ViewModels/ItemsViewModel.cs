@@ -16,6 +16,7 @@ using ShellApp.Events;
 using System.Reactive.Linq;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Net.Http;
 
 namespace ShellApp.ViewModels
 {
@@ -108,7 +109,14 @@ namespace ShellApp.ViewModels
             if (itemsNotificationService.IsConnected)
                 return;
 
-            await this.itemsNotificationService.ConnectAsync();
+            try
+            { 
+                await this.itemsNotificationService.ConnectAsync();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         public Item SelectedItem
