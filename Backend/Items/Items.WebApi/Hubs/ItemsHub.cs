@@ -5,8 +5,7 @@ using ShellApp.Items.Application.Common.Interfaces;
 
 namespace ShellApp.Items.WebApi.Hubs
 {
-    [Authorize]
-    [Authorize(AuthenticationSchemes.DefaultAuthenticationScheme)]
+    [Authorize(LocalApi.AuthenticationScheme)]
     public class ItemsHub : Hub<IItemsNotificationClient>
     {
 

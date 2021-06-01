@@ -13,7 +13,7 @@ namespace ShellApp.Items.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes.DefaultAuthenticationScheme)]
+    [Authorize(LocalApi.AuthenticationScheme)]
     public class ItemsController : ControllerBase
     {
         private readonly IMediator mediator;
