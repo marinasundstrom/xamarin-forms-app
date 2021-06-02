@@ -47,7 +47,9 @@ namespace ShellApp.ViewModels
             DataStore = dataStore;
             this.itemsNotificationService = itemsNotificationService;
 
-            onItemDeletedEventSubscription = messageBus.WhenPublished<ItemDeletedEvent>().Subscribe(OnItemDeletedEvent);
+            onItemDeletedEventSubscription = messageBus
+                .WhenPublished<ItemDeletedEvent>()
+                .Subscribe(OnItemDeletedEvent);
 
             itemsNotificationService.ItemCreated += OnNotifiedItemCreated;
             itemsNotificationService.ItemDeleted += OnNotifiedItemDeleted;
@@ -69,7 +71,7 @@ namespace ShellApp.ViewModels
 
         private void OnItemDeletedEvent(ItemDeletedEvent obj)
         {
-            Shell.Current.CurrentPage.DisplayToastAsync(new ToastOptions
+            App.Current.MainPage.DisplayToastAsync(new ToastOptions
             {
                 MessageOptions = new MessageOptions()
                 {
