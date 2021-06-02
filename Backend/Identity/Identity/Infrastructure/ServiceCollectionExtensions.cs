@@ -48,6 +48,8 @@ namespace ShellApp.Identity.Infrastructure
 
             services.AddTransient<IIdentityService, IdentityService>();
 
+            services.AddScoped<IdentityServer4.Services.IProfileService, ProfileService>();
+
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
