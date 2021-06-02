@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace ShellApp.Identity.Infrastructure
 {
@@ -10,14 +13,26 @@ namespace ShellApp.Identity.Infrastructure
         public static IEnumerable<ApiResource> Apis = new List<ApiResource>
         {
             // local API
-            new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
+            new ApiResource(
+             LocalApi.ScopeName,
+                "Local Api",
+                new [] { JwtClaimTypes.Name, JwtClaimTypes.Email, JwtClaimTypes.Role } ),
+            new ApiResource("weatherapi", "The Weather API", new[] { JwtClaimTypes.Role })
         };
 
         public static IEnumerable<IdentityResource> IdentityResources =>
                            new IdentityResource[]
                            {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new ProfileWithRoleIdentityResource(),
+                new IdentityResources.Email(),
+                new IdentityResources.Phone(),
+                new IdentityResource()
+                {
+                    Name = "roles",
+                    DisplayName = "Roles",
+                    UserClaims = { JwtClaimTypes.Role }
+                }
                            };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -31,6 +46,18 @@ namespace ShellApp.Identity.Infrastructure
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
+                new Client
+                {
+                    ClientId = "blazor",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    AllowedCorsOrigins = { "https://localhost:5001" },
+                    AllowedScopes = { "openid", "profile", "email", "weatherapi" },
+                    RedirectUris = { "https://localhost:5001/authentication/login-callback" },
+                    PostLogoutRedirectUris = { "https://localhost:5001/" },
+                    Enabled = true
+                },
                 // m2m client credentials flow client
                 new Client
                 {
@@ -71,13 +98,20 @@ namespace ShellApp.Identity.Infrastructure
                     RequireClientSecret = false,
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    AllowedScopes = { "openid", "profile", "scope2", IdentityServerConstants.LocalApi.ScopeName },
-
+                    AllowedScopes = {
+                        LocalApi.ScopeName,
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        StandardScopes.Email, 
+                        StandardScopes.Phone,
+                        "roles"
+                    },
 
                     AllowOfflineAccess = true,
                     RefreshTokenUsage = TokenUsage.OneTimeOnly,
-                    RefreshTokenExpiration = TokenExpiration.Sliding
-                },
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
+
+                    UpdateAccessTokenClaimsOnRefresh = true,                },
             };
     }
 }

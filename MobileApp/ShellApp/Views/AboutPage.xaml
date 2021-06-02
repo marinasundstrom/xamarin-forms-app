@@ -3,13 +3,10 @@
     x:Class="ShellApp.Views.AboutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
     xmlns:vm="clr-namespace:ShellApp.ViewModels"
     Title="{Binding Title}"
     x:DataType="vm:AboutViewModel">
-
-    <ContentPage.BindingContext>
-        <vm:AboutViewModel />
-    </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -43,7 +40,7 @@
                 Padding="30,24,30,24"
                 Orientation="Vertical"
                 Spacing="10">
-                <Label FontSize="Title" Text="Start developing today" />
+                <Label FontSize="Title" Text="{Binding Name, StringFormat='Hi, {0}!'}" />
                 <Label
                     Padding="0,0,0,0"
                     FontSize="16"
@@ -64,6 +61,19 @@
                     Command="{Binding OpenWebCommand}"
                     Text="Learn more"
                     TextColor="White" />
+                <Button
+                    Margin="0,10,0,0"
+                    BackgroundColor="{StaticResource Primary}"
+                    Command="{Binding LogoutCommand}"
+                    Text="Log out"
+                    TextColor="White">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FA Solid"
+                            Glyph="{x:Static fa:Glyphs.SignOutAlt}"
+                            Color="White" />
+                    </Button.ImageSource>
+                </Button>
             </StackLayout>
         </ScrollView>
     </Grid>

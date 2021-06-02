@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:fa="clr-namespace:FontAwesome"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ShellApp.ViewModels"
     x:DataType="vm:LoginViewModel"
@@ -14,7 +15,14 @@
             <Button
                 Command="{Binding LoginCommand}"
                 Text="Login"
-                VerticalOptions="Center" />
+                VerticalOptions="Center">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FA Solid"
+                        Glyph="{x:Static fa:Glyphs.SignInAlt}"
+                        Color="White" />
+                </Button.ImageSource>
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

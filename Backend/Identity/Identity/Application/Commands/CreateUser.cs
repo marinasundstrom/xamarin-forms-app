@@ -19,7 +19,9 @@ namespace ShellApp.Identity.Application.Commands
 
         public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            await identityService.CreateUserAsync(request.Email, request.Password);
+            await identityService.CreateUserAsync(
+                request.FirstName, request.LastName,
+                request.Email, request.Password);
 
             return Unit.Value;
         }

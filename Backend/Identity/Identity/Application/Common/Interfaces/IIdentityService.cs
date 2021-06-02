@@ -8,7 +8,7 @@ namespace ShellApp.Identity.Application.Common.Interfaces
     public interface IIdentityService
     {
         Task<bool> AuthorizeAsync(string userId, string policyName);
-        Task<(IdentityResult IdentityResult, string UserId)> CreateUserAsync(string userName, string password);
+        Task<(IdentityResult IdentityResult, string UserId)> CreateUserAsync(string firstName, string lastName, string userName, string password);
         Task<IdentityResult> DeleteUserAsync(string userId);
         Task<IdentityResult> DeleteUserAsync(ApplicationUser user);
         Task<string> GetUserNameAsync(string userId);

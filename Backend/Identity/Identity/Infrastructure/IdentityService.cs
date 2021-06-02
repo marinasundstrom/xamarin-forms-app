@@ -32,10 +32,12 @@ namespace ShellApp.Identity.Infrastructure
             return user.UserName;
         }
 
-        public async Task<(IdentityResult IdentityResult, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(IdentityResult IdentityResult, string UserId)> CreateUserAsync(string firstName, string lastName, string userName, string password)
         {
             var user = new ApplicationUser
             {
+                FirstName = firstName,
+                LastName = lastName,
                 UserName = userName,
                 Email = userName
             };

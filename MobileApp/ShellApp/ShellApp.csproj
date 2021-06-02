@@ -24,6 +24,7 @@
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
     <PackageReference Include="IdentityModel.OidcClient" Version="4.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
   </ItemGroup>
 
     <ItemGroup>
@@ -39,19 +40,6 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Markup\" />
-      <Folder Include="Resources\" />
-      <Folder Include="Resources\Fonts\" />
-      <Folder Include="Events\" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="Resources\Fonts\Font AwesomeIcons.otf" />
-      <None Remove="Resources\Fonts\Font AwesomeRegular.otf" />
-      <None Remove="Resources\Fonts\FontAwesomeSolid.otf" />
-      <None Remove="Microsoft.AspNetCore.SignalR" />
-      <None Remove="Microsoft.AspNetCore.SignalR.Client" />
-    </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Resources\Fonts\FontAwesomeIcons.otf" />
       <EmbeddedResource Include="Resources\Fonts\FontAwesomeRegular.otf" />

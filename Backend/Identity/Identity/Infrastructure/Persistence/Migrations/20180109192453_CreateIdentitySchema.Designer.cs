@@ -19,7 +19,7 @@ namespace ShellApp.Identity.Infrastructure.Persistence.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
-            modelBuilder.Entity("IdentityServer4AspNetIdentity.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ShellApp.Identity.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -186,7 +186,7 @@ namespace ShellApp.Identity.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("IdentityServer4AspNetIdentity.Models.ApplicationUser")
+                    b.HasOne("ShellApp.Identity.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -194,7 +194,7 @@ namespace ShellApp.Identity.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("IdentityServer4AspNetIdentity.Models.ApplicationUser")
+                    b.HasOne("ShellApp.Identity.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -207,7 +207,7 @@ namespace ShellApp.Identity.Infrastructure.Persistence.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("IdentityServer4AspNetIdentity.Models.ApplicationUser")
+                    b.HasOne("ShellApp.Identity.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -215,7 +215,7 @@ namespace ShellApp.Identity.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("IdentityServer4AspNetIdentity.Models.ApplicationUser")
+                    b.HasOne("ShellApp.Identity.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
