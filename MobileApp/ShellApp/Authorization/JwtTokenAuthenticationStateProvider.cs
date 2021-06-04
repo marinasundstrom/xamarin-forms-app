@@ -30,7 +30,7 @@ namespace ShellApp.Authorization
 
         public async Task ClearAuthTokenAsync()
         {
-            await UpdateAuthenticationState(string.Empty);
+            await UpdateAuthenticationState(null);
 
             NotifyAuthenticationStateChanged(Task.FromResult(authenticationState));
         }

@@ -1,5 +1,6 @@
 ﻿using IdentityModel.Client;
 using IdentityModel.OidcClient;
+using ShellApp.Authorization;
 using ShellApp.Views;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,21 @@ namespace ShellApp.ViewModels
     {
         private OidcClient _oidcClient;
         private LoginResult _loginResult;
+        private readonly JwtTokenAuthenticationStateProvider authenticationStateProvider;
 
         public Command LoginCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(JwtTokenAuthenticationStateProvider authenticationStateProvider)
         {
+            this.authenticationStateProvider = authenticationStateProvider;
+
             LoginCommand = new Command(OnLoginClicked);
         }
 
         public async void OnAppearing()
         {
-            var authToken = await SecureStorage.GetAsync("AuthToken");
-            if(authToken != null)
+            var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+            if(state.User.Identity.IsAuthenticated)
             {
                 await GoToAboutPage();
             }
@@ -75,7 +79,7 @@ namespace ShellApp.ViewModels
                 return;
             }
 
-            await SecureStorage.SetAsync("AuthToken", _loginResult?.AccessToken);
+            await authenticationStateProvider.SetAuthTokenAsync(_loginResult?.AccessToken);
 
             await GoToAboutPage();
         }

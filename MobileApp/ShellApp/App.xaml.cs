@@ -52,7 +52,8 @@ namespace ShellApp
 
         private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddSingleton<AuthenticationStateProvider, JwtTokenAuthenticationStateProvider>();
+            services.AddSingleton<JwtTokenAuthenticationStateProvider>();
+            services.AddSingleton<AuthenticationStateProvider>(sp => sp.GetRequiredService<JwtTokenAuthenticationStateProvider>());
 
             services.AddScoped<CheckUnauthorizedHandler>();
 

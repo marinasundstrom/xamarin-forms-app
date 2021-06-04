@@ -11,25 +11,27 @@ using System.Net.Http;
 using IdentityModel.Client;
 using System.Threading.Tasks;
 using IdentityModel;
+using ShellApp.Authorization;
 
 namespace ShellApp.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
         private readonly IServiceProvider serviceProvider;
+        private readonly JwtTokenAuthenticationStateProvider authenticationStateProvider;
         private string name;
 
-        public AboutViewModel(IServiceProvider serviceProvider)
+        public AboutViewModel(IServiceProvider serviceProvider, JwtTokenAuthenticationStateProvider authenticationStateProvider)
         {
             this.serviceProvider = serviceProvider;
-
+            this.authenticationStateProvider = authenticationStateProvider;
             Title = "About";
 
             OpenWebCommand = new Command(async () => await Xamarin.Essentials.Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
 
             LogoutCommand = new Command(async () =>
             {
-                SecureStorage.Remove("AuthToken");
+                await authenticationStateProvider.ClearAuthTokenAsync();
 
                 await Logout();
 
@@ -83,12 +85,10 @@ namespace ShellApp.ViewModels
 
         public async void OnAppearing()
         {
-            var stream = await SecureStorage.GetAsync("AuthToken");
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(stream);
-            var tokens = jsonToken as JwtSecurityToken;
+            var authenticationState = await authenticationStateProvider.GetAuthenticationStateAsync();
+            var claims = authenticationState.User.Claims;
 
-            Name = tokens.Claims.FirstOrDefault(claim => claim.Type == "firstname" /* JwtClaimTypes.Name */)?.Value;
+            Name = claims.FirstOrDefault(claim => claim.Type == "firstname" /* JwtClaimTypes.Name */)?.Value;
         }
 
         public string Name { get => name; set => SetProperty(ref name, value); }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityModel;
 using Xamarin.Forms;
 
 namespace ShellApp.Authorization
@@ -82,7 +83,7 @@ namespace ShellApp.Authorization
                 {
                     var roles = Role.Split(',').Select(x => x.Trim());
 
-                    authorized = roles.Any(role => authenticationState.User.HasClaim(ClaimTypes.Role, role));
+                    authorized = roles.Any(role => authenticationState.User.HasClaim(JwtClaimTypes.Role, role));
                 }
                 else
                 {

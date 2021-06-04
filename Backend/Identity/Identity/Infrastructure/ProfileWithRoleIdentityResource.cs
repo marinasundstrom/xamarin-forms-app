@@ -1,4 +1,5 @@
-﻿using IdentityModel;
+﻿using System.Security.Claims;
+using IdentityModel;
 using IdentityServer4.Models;
 
 namespace ShellApp.Identity.Infrastructure
@@ -8,7 +9,7 @@ namespace ShellApp.Identity.Infrastructure
     {
         public ProfileWithRoleIdentityResource()
         {
-            this.UserClaims.Add(JwtClaimTypes.Role);
+            this.UserClaims.Add(ClaimTypes.Role);
         }
     }
 }
