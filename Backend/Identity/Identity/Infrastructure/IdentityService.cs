@@ -12,15 +12,18 @@ namespace ShellApp.Identity.Infrastructure
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
         }
@@ -43,6 +46,16 @@ namespace ShellApp.Identity.Infrastructure
             };
 
             var result = await _userManager.CreateAsync(user, password);
+
+            var role = await _roleManager.FindByNameAsync("Admin");
+
+            if(role == null)
+            {
+                role = new IdentityRole() { Name = "Admin" };
+                await _roleManager.CreateAsync(role);
+            }
+
+            await _userManager.AddToRoleAsync(user, role.Name);
 
             return (result, user.Id);
         }
