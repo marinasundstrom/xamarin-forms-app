@@ -3,6 +3,7 @@
     x:Class="ShellApp.Views.AboutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:auth="clr-namespace:ShellApp.Authorization"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:vm="clr-namespace:ShellApp.ViewModels"
     Title="{Binding Title}"
@@ -40,7 +41,29 @@
                 Padding="30,24,30,24"
                 Orientation="Vertical"
                 Spacing="10">
-                <Label FontSize="Title" Text="{Binding Name, StringFormat='Hi, {0}!'}" />
+
+                <auth:AuthorizationView>
+                    <auth:AuthorizationView.AuthorizedTemplate>
+                        <DataTemplate>
+                            <Label FontSize="Title" Text="{Binding Name, StringFormat='Hi, {0}!'}" />
+                        </DataTemplate>
+                    </auth:AuthorizationView.AuthorizedTemplate>
+
+                    <auth:AuthorizationView.UnauthorizedTemplate>
+                        <DataTemplate>
+                            <Label HorizontalTextAlignment="Center" TextColor="Red">Unauthorized</Label>
+                        </DataTemplate>
+                    </auth:AuthorizationView.UnauthorizedTemplate>
+                </auth:AuthorizationView>
+
+                <auth:AuthorizationView Role="Admin">
+                    <auth:AuthorizationView.AuthorizedTemplate>
+                        <DataTemplate>
+                            <Label Text="You are Admin" />
+                        </DataTemplate>
+                    </auth:AuthorizationView.AuthorizedTemplate>
+                </auth:AuthorizationView>
+
                 <Label
                     Padding="0,0,0,0"
                     FontSize="16"

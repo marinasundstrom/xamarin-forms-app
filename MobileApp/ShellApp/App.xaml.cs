@@ -11,6 +11,7 @@ using ShellApp.ViewModels;
 using System.Net.Http;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
+using ShellApp.Authorization;
 
 namespace ShellApp
 {
@@ -42,6 +43,8 @@ namespace ShellApp
             ViewModelLocator.AppServiceProvider = host.Services;
             DIDataTemplate.AppServiceProvider = host.Services;
 
+            AuthorizationView.AuthenticationStateProvider = host.Services.GetRequiredService<AuthenticationStateProvider>();
+
             //var authToken = await SecureStorage.GetAsync("authToken");
 
             MainPage = host.Services.GetService<LoginPage>();
@@ -49,6 +52,8 @@ namespace ShellApp
 
         private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            services.AddSingleton<AuthenticationStateProvider, JwtTokenAuthenticationStateProvider>();
+
             services.AddScoped<CheckUnauthorizedHandler>();
 
             services.AddHttpClient<IItemsClient>((provider, client) =>

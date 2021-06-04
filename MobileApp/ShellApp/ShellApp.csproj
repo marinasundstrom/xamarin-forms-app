@@ -45,4 +45,10 @@
       <EmbeddedResource Include="Resources\Fonts\FontAwesomeRegular.otf" />
       <EmbeddedResource Include="Resources\Fonts\FontAwesomeSolid.otf" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Authorization\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Authorization\" />
+    </ItemGroup>
 </Project>

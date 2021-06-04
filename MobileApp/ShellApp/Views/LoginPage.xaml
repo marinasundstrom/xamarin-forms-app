@@ -3,6 +3,7 @@
     x:Class="ShellApp.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:auth="clr-namespace:ShellApp.Authorization"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,8 +11,28 @@
     x:DataType="vm:LoginViewModel"
     Shell.NavBarIsVisible="False"
     mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="AuthorizedTemplate">
+                <Label HorizontalTextAlignment="Center" TextColor="Green">Authorized</Label>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnauthorizedTemplate">
+                <Label HorizontalTextAlignment="Center" TextColor="Red">Unauthorized</Label>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <auth:AuthorizationView
+                AuthorizedTemplate="{StaticResource AuthorizedTemplate}"
+                HeightRequest="100"
+                UnauthorizedTemplate="{StaticResource UnauthorizedTemplate}" />
+
             <Button
                 Command="{Binding LoginCommand}"
                 Text="Login"
